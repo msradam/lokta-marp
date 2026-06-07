@@ -105,22 +105,63 @@ or font embedding; use the Quick start CLI for final exports.
 ## Per-slide variants
 
 Apply with `<!-- _class: NAME -->` on one slide, or `class:` in front matter for
-the whole deck.
+the whole deck. Classes can combine (e.g. `lead invert`).
 
-| Class | Effect |
+**Stocks** re-point the whole slide. Paper is the default.
+
+| Class | Stock |
 | --- | --- |
-| `lead` | Cover slide, oversized Archivo h1 |
-| `invert` | Flip to the Ink dark stock |
-| `marigold` | Marigold feature ground (dark text) |
-| `peach` | Peach heritage ground (dark text) |
+| (none) | Paper, the warm cream default |
+| `invert` or `ink` | Ink, the warm dark stock |
+| `bone` | Bone, the cool light stock |
+| `indigo` | Indigo, the cool dark stock |
+
+**Grounds** are full-bleed feature slides in one pigment, with AA-safe text.
+
+| Class | Ground | Text |
+| --- | --- | --- |
+| `marigold` | the hero pigment | dark |
+| `peach` | heritage salmon | dark |
+| `lavender` | the cover tone | dark |
+| `aubergine` | feature panel | light |
+| `cinnabar` | the danger pigment | light |
+| `celadon` | the success pigment | light |
+| `night` | dramatic opener | light |
+
+**Layout**: `lead` is the cover slide (oversized Archivo h1).
 
 Inline: a backtick `` `LABEL` `` on its own line renders a tracked eyebrow, `---`
 becomes the hatched end-mark, and `>` blockquotes set in Source Serif.
 
+## Customizing
+
+Every font and colour is a CSS variable. Override them with the `style:`
+directive, per deck or per slide.
+
+```yaml
+---
+marp: true
+theme: lokta
+style: |
+  section {
+    --display: 'Inter', sans-serif;   /* swap the display/body face   */
+    --mono: 'JetBrains Mono', monospace;
+    --serif: 'Newsreader', serif;
+    --marigold: #FFD23F;              /* retune the hero pigment       */
+    --paper-01: #F7F4E9;             /* warm the page surface          */
+  }
+---
+```
+
+Font dials: `--display`, `--mono`, `--serif`. Colour dials: `--paper-00..04`,
+`--ink-40..100`, and `--marigold`, `--peach`, `--lavender`, `--aubergine`,
+`--cinnabar`, `--celadon`, `--indigo`, `--night`.
+
 ## Mermaid
 
 Write a ```mermaid``` fence and the engine renders it with the Lokta diagram
-theme, re-themed from the slide's class (light by default, Ink on `invert`).
+theme, re-themed from the slide's class (light by default, the dark palette on
+dark grounds like `invert`, `indigo`, and `night`).
 
 ````markdown
 ```mermaid

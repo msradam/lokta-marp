@@ -9,8 +9,8 @@ const mermaidThemes = require('../mermaid');
 // diagram). Fonts are embedded from the repo, so decks stay self-hosted.
 const MERMAID_CDN = 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js';
 
-// Slide classes that use the Ink (dark) ground.
-const DARK = ['invert', 'ink', 'indigo', 'night'];
+// Slide classes with a dark ground: Mermaid uses the dark palette on these.
+const DARK = ['invert', 'ink', 'indigo', 'night', 'aubergine', 'cinnabar', 'celadon'];
 
 // Self-hosted fonts, embedded as base64 so a rendered deck carries them with no
 // network and no Google Fonts CDN (a GDPR exposure in the EU).
