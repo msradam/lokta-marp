@@ -128,7 +128,18 @@ the whole deck. Classes can combine (e.g. `lead invert`).
 | `celadon` | the success pigment | light |
 | `night` | dramatic opener | light |
 
-**Layout**: `lead` is the cover slide (oversized Archivo h1).
+**Layout** classes shape common slides:
+
+| Class     | Effect                                                              |
+| --------- | ------------------------------------------------------------------- |
+| `lead`    | Cover slide (oversized Archivo h1).                                 |
+| `columns` | Flows dense content into two columns; headings span the full width. |
+| `divider` | Section break: eyebrow, big title, a measured rule.                 |
+| `stat`    | One oversized figure. Write `# 92%`, then a caption paragraph.      |
+
+For an image-split slide use Marp's native background directive,
+`![bg right:40%](photo.jpg)` (`bg left`/`bg right`, optional `:width`), and add a
+citation with `<p class="source">Source: …</p>`.
 
 Inline: a backtick `` `LABEL` `` on its own line renders a tracked eyebrow, `---`
 becomes the hatched end-mark, and `>` blockquotes set in Source Serif.
