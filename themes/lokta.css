@@ -6,16 +6,27 @@
  *   Grounds:  marigold · peach · lavender · aubergine · cinnabar · celadon · night
  *   Layout:   lead (cover slide)
  *
- * Dials (override with the `style:` directive, e.g. style: | section { --display: 'Inter'; }):
+ * Dials (override with the `style:` directive):
  *   Fonts:  --display · --mono · --serif
  *   Colors: --paper-00..04 · --ink-40..100 · --marigold · --peach · --lavender
  *           --aubergine · --cinnabar · --celadon · --indigo · --night
  *
- * Fonts are self-hosted (SIL OFL). The Marp engine (engine/index.js) embeds them
- * as base64 at render time, so a rendered deck carries its fonts with no Google
- * Fonts CDN (a GDPR exposure in the EU). Render through the provided .marprc.js
- * to get the fonts and the per-slide Mermaid theming.
+ * Fonts are self-hosted (SIL OFL): no Google Fonts CDN, which would send viewer
+ * IPs to Google (a GDPR exposure in the EU). The woff2 files live in ./fonts and
+ * resolve relative to the rendered HTML, so render with the fonts alongside the
+ * output (the repo's build does this). For a standalone, engine-embedded version
+ * see github.com/msradam/lokta-marp.
  */
+@font-face { font-family: "Archivo"; font-weight: 400; font-display: swap; src: url("fonts/archivo-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Archivo"; font-weight: 500; font-display: swap; src: url("fonts/archivo-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Archivo"; font-weight: 700; font-display: swap; src: url("fonts/archivo-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Archivo"; font-weight: 800; font-display: swap; src: url("fonts/archivo-latin-800-normal.woff2") format("woff2"); }
+@font-face { font-family: "Spline Sans Mono"; font-weight: 400; font-display: swap; src: url("fonts/spline-sans-mono-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Spline Sans Mono"; font-weight: 500; font-display: swap; src: url("fonts/spline-sans-mono-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Spline Sans Mono"; font-weight: 600; font-display: swap; src: url("fonts/spline-sans-mono-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Source Serif 4"; font-style: italic; font-weight: 400; font-display: swap; src: url("fonts/source-serif-4-latin-400-italic.woff2") format("woff2"); }
+@font-face { font-family: "Source Serif 4"; font-style: italic; font-weight: 500; font-display: swap; src: url("fonts/source-serif-4-latin-500-italic.woff2") format("woff2"); }
+@font-face { font-family: "Noto Sans JP"; font-weight: 400; font-display: swap; src: url("fonts/noto-sans-jp-japanese-400-normal.woff2") format("woff2"); }
 
 :root {
   --paper-00: #FAF8EA; --paper-01: #F4F1DF; --paper-02: #EAE6D2; --paper-04: #C2B89C;
@@ -69,6 +80,8 @@ hr { border: 0; height: 8px; margin: 18px 0; background-image: repeating-linear-
 
 /* Tracked eyebrow label: write `LABEL` on its own line, or use a span.label */
 .label, section > p:first-child em.label { font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-60); }
+/* A lone backtick label on its own line renders as a tracked eyebrow (not a code chip). */
+section p > code:only-child { font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-60); background: none; border: 0; padding: 0; }
 
 /* LEAD / cover slide */
 section.lead { display: flex; flex-direction: column; justify-content: center; }
@@ -135,13 +148,10 @@ section.celadon { background: var(--celadon); }
 section.night { background: var(--night); }
 
 /* ── MERMAID (opinionated Lokta diagrams) ──────────────────────────────────
- * Render decks with: marp deck.md --theme lokta.marp.css (mermaid enabled).
- * Pass lokta-mermaid.json to mermaid.initialize(); these rules force hard edges
- * and the mono edge labels the themeVariables can't reach. */
+ * The theme carries these so live ```mermaid fences (via a Marp engine) or
+ * pre-rendered SVGs both get hard edges and mono edge labels. */
 .mermaid .node rect, .mermaid .node polygon, .mermaid .cluster rect,
 .mermaid rect.actor, .mermaid .labelBox, .mermaid .note { rx: 0 !important; ry: 0 !important; }
-/* Node labels use themeVariables.fontFamily (Archivo) directly, with no override,
-   so Mermaid measures and renders with the same font and labels do not clip. */
 .mermaid .edgeLabel, .mermaid .edgeLabel *, .mermaid .messageText, .mermaid .noteText {
   font-family: "Spline Sans Mono", monospace !important; font-size: 11px !important; }
 .mermaid .edgeLabel { background: var(--paper-01) !important; }
