@@ -2,7 +2,7 @@
 marp: true
 theme: lokta
 paginate: true
-header: "映画の料理 · LOKTA"
+header: "光の写本 · LOKTA"
 footer: "After Cuisine on Screen · Prestel"
 ---
 
